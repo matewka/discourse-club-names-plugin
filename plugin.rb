@@ -10,7 +10,7 @@ after_initialize {
     attributes :name
 
     def name
-      if user_is_current_user
+      if object&.id == scope.user&.id
         return _old_name_method
       else
         # TODO: make this list editable
