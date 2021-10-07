@@ -10,13 +10,13 @@ after_initialize {
     attributes :name
 
     def name
-      if scope.user && object[:id] == scope.user.id
+      if scope&.user && object[:id] == scope.user.id
         return _old_name_method
       else
         # TODO: make this list editable
         clubGroups = Array['ksi']
 
-        if scope.user
+        if scope&.user
           ownGroups = GroupUser.where(user_id: scope.user.id)
                                .map { |gu| gu.group_id }
                                .map { |group_id| Group.find_by(id: group_id) }
